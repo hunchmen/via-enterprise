@@ -9,7 +9,7 @@
 		<relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.via</groupId>
+	<groupId>com.via.auth</groupId>
     <artifactId>auth-api</artifactId>
     <version>1.0.0</version>
 	
