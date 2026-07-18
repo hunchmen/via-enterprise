@@ -25,4 +25,5 @@ replay_pid*
 
 ##
 /target
-/ems-api/target
+./ems-api/target
+
