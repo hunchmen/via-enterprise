@@ -1,4 +1,4 @@
-package com.via.ems.config;
+package com.via.auth.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
     /**
-     * Configures the OpenAPI object for the Employee Management System API.
+     * Configures the OpenAPI object for the Authentication Management System API.
      * <p>
      * The OpenAPI object is used to generate the API documentation.
      * <p>
@@ -21,7 +21,7 @@ public class SwaggerConfig {
      * The API documentation is based on the OpenAPI 3.0.0 specification.
      */
     @Bean
-    public OpenAPI emsOpenAPI() {
+    public OpenAPI authOpenAPI() {
         return new OpenAPI()
                 .components(new Components()
                         .addSecuritySchemes(
@@ -30,12 +30,12 @@ public class SwaggerConfig {
                                         .type(SecurityScheme.Type.APIKEY)
                                         .in(SecurityScheme.In.COOKIE)
                                         .name("JSESSIONID")
-                                        .description("Shared session cookie returned by auth-api login")))
+                                        .description("Session cookie returned after a successful login")))
                 .info(new Info()
-                        .title("Employee Management System API")
-                        .description("API documentation for Employee Management System")
+                        .title("Authentication Management System API")
+                        .description("API documentation for Authentication Management System")
                         .version("v1.0.0")
-                        .contact(new Contact().name("EMS Support").email("support@via.com"))
+                        .contact(new Contact().name("VIA Enterprise Support").email("support@via.com"))
                         .license(new License()
                                 .name("Apache 2.0")
                                 .url("https://www.apache.org/licenses/LICENSE-2.0.html")));
