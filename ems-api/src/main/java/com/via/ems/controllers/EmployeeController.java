@@ -1,7 +1,14 @@
 package com.via.ems.controllers;
 
+import com.via.ems.dto.EmployeeDTO;
+import com.via.ems.service.EmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,17 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-
-import jakarta.validation.Valid;
-
-import com.via.ems.dto.EmployeeDTO;
-import com.via.ems.service.EmployeeService;
-
 @Tag(name = "Employee", description = "APIs for managing employees")
+@SecurityRequirement(name = "sessionCookie")
 @RestController
 @RequestMapping(path = "/v1/employees")
 public class EmployeeController {
@@ -43,18 +41,20 @@ public class EmployeeController {
     @Operation(summary = "Create a new employee", description = "Creates a new employee with the provided details")
     @ApiResponse(responseCode = "201", description = "Employee created successfully")
     @PostMapping
-    public ResponseEntity<EmployeeDTO> createEmployee(
-            @Valid @RequestBody EmployeeDTO request) {
+    public ResponseEntity<EmployeeDTO> createEmployee(@Valid @RequestBody EmployeeDTO request) {
         EmployeeDTO savedEmployeeResponseDTO = employeeService.createEmployee(request);
         return new ResponseEntity<>(savedEmployeeResponseDTO, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Get employee by ID", description = "Retrieves an employee's details by their unique identifier")
+    @Operation(
+            summary = "Get employee by ID",
+            description = "Retrieves an employee's details by their unique identifier")
     @ApiResponse(responseCode = "200", description = "Employee found and returned")
     @ApiResponse(responseCode = "404", description = "Employee not found")
     @GetMapping("{id}")
     public ResponseEntity<EmployeeDTO> getEmployeeById(
-            @Parameter(description = "ID of the employee to be retrieved", required = true) @PathVariable("id") Long id) {
+            @Parameter(description = "ID of the employee to be retrieved", required = true) @PathVariable("id")
+                    Long id) {
         EmployeeDTO EmployeeResponseDTO = employeeService.getEmployeeById(id);
         return new ResponseEntity<>(EmployeeResponseDTO, HttpStatus.OK);
     }
@@ -67,7 +67,9 @@ public class EmployeeController {
         return new ResponseEntity<>(listOfEmployee, HttpStatus.OK);
     }
 
-    @Operation(summary = "Update an existing employee", description = "Updates the details of an existing employee identified by their ID")
+    @Operation(
+            summary = "Update an existing employee",
+            description = "Updates the details of an existing employee identified by their ID")
     @ApiResponse(responseCode = "200", description = "Employee updated successfully")
     @ApiResponse(responseCode = "404", description = "Employee not found")
     @PutMapping("{id}")
@@ -87,5 +89,4 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok("Employee deleted successfully.");
     }
-
 }
