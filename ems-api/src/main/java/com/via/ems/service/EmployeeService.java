@@ -1,12 +1,10 @@
 package com.via.ems.service;
 
+import com.via.ems.dto.EmployeeDTO;
 import java.util.List;
 
-import com.via.ems.dto.EmployeeDTO;
-
-
 public interface EmployeeService {
-    
+
     EmployeeDTO createEmployee(EmployeeDTO request);
 
     EmployeeDTO getEmployeeById(Long id);
@@ -16,5 +14,4 @@ public interface EmployeeService {
     EmployeeDTO updateEmployee(Long id, EmployeeDTO updatedEmployee);
 
     void deleteEmployee(Long id);
-
 }
