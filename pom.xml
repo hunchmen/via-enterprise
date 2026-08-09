@@ -20,6 +20,7 @@
 
   <modules>
     <module>ems-api</module>
+    <module>auth-api</module>
   </modules>
 
   <properties>

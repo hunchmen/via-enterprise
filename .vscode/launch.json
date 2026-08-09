@@ -8,6 +8,17 @@
             "mainClass": "com.via.ems.EmsApiApplication",
             "projectName": "ems-api",
             "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=63530 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=ems-api"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AuthApplication<auth-api>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.via.auth.AuthApplication",
+            "projectName": "auth-api",
+            "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
     ]
