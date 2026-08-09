@@ -30,6 +30,7 @@ import org.springframework.test.web.servlet.MockMvc;
             "spring.jpa.hibernate.ddl-auto=create-drop",
             "spring.jpa.show-sql=false",
             "spring.session.jdbc.initialize-schema=always",
+            "spring.session.jdbc.table-name=SPRING_SESSION",
             "debug=false"
         })
 @AutoConfigureMockMvc

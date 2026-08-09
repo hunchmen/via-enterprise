@@ -12,7 +12,7 @@
 	<groupId>com.via.auth</groupId>
     <artifactId>auth-api</artifactId>
     <version>1.0.0</version>
-	
+
 	<name>auth-api</name>
 	<description>Authentication API Application</description>
 
@@ -91,7 +91,7 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 		</dependency>
-        
+
 	</dependencies>
 
 	<build>

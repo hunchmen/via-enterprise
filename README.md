@@ -33,9 +33,9 @@ by both modules.
 ## Architecture
 
 Each API is an independently runnable Spring Boot application with its own
-configuration, port, context path, logs, and OpenAPI definition. Both services
-connect to the same MySQL database, `ems_db`, and use Spring Session JDBC to
-share authenticated sessions.
+configuration, port, context path, logs, and OpenAPI definition. The EMS API
+stores employee data in `ems_db`, while the Authentication API stores users and
+shared JDBC sessions in `users_db`.
 
 ```mermaid
 flowchart LR
@@ -76,9 +76,9 @@ flowchart LR
     Auth --> AuthController
     Security --> SharedSession
     EmsSecurity --> SharedSession
-    Repository --> Database[(MySQL ems_db)]
-    UserRepository --> Database
-    SharedSession --> Database
+    Repository --> EmsDatabase[(MySQL ems_db)]
+    UserRepository --> UsersDatabase[(MySQL users_db)]
+    SharedSession --> UsersDatabase
 ```
 
 ### EMS request flow
@@ -316,20 +316,21 @@ Example not-found response:
 - JDK 21
 - Maven 3.9 or newer
 - MySQL available on `localhost:3306`
-- An `ems_db` database
+- `ems_db` and `users_db` databases on the same MySQL server
 
 Both modules read their datasource settings from their respective
 `application.properties` files. Update those settings for your local MySQL
 environment before starting the services. Hibernate schema generation is
 disabled (`spring.jpa.hibernate.ddl-auto=none`). The EMS `employees` table must
-already exist; the Authentication API creates and versions `auth_users`,
-`SPRING_SESSION`, and `SPRING_SESSION_ATTRIBUTES` with Flyway. Authentication
-migrations use a dedicated
-`auth_flyway_schema_history` table and can initialize alongside existing EMS
-tables.
+already exist in `ems_db`; the Authentication API creates and versions
+`auth_users`, `SPRING_SESSION`, and `SPRING_SESSION_ATTRIBUTES` in `users_db`
+with Flyway. Authentication migrations use a dedicated
+`auth_flyway_schema_history` table.
 
-Both APIs must point to the same database. Start `auth-api` first so Flyway can
-create the shared session tables before EMS receives traffic.
+Both APIs must connect to the same MySQL server. The EMS database account must
+have access to `users_db` because its Spring Session table is configured as
+`users_db.SPRING_SESSION`. Start `auth-api` first so Flyway can create the
+shared session tables before EMS receives traffic.
 
 Build and test all modules from the repository root:
 

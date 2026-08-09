@@ -16,7 +16,7 @@
             "name": "Spring Boot-AuthApplication<auth-api>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "com.via.AuthApplication",
+            "mainClass": "com.via.auth.AuthApplication",
             "projectName": "auth-api",
             "args": "",
             "envFile": "${workspaceFolder}/.env"

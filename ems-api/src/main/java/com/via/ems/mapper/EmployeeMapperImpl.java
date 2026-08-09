@@ -1,12 +1,11 @@
 package com.via.ems.mapper;
 
-import org.springframework.stereotype.Component;
-
 import com.via.ems.dto.EmployeeDTO;
 import com.via.ems.model.Employee;
+import org.springframework.stereotype.Component;
 
 @Component
-public class EmployeeMapperImpl implements EmployeeMapper{
+public class EmployeeMapperImpl implements EmployeeMapper {
 
     @Override
     public EmployeeDTO toDto(Employee employee) {
@@ -15,7 +14,6 @@ public class EmployeeMapperImpl implements EmployeeMapper{
 
     @Override
     public Employee toEntity(EmployeeDTO request) {
-       return new Employee(request.firstName(), request.lastName(), request.email());
+        return new Employee(request.firstName(), request.lastName(), request.email());
     }
-    
 }
